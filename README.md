@@ -11,8 +11,20 @@ The resource group is created using a **Bicep template**
 - **Naming Convention**:  `<Name>-<env>-<region>-<type>`
 
 ---
+## App Service plan
+An **App service plan** provides the computer resources for hosting Web Apps which is fully managed by Microsoft. Every Azure App Service must run inside an App Service Plan. Multiple app share the same plan.
 
+---
 
+## Azure App Service
+An **Azure App Service** is a PaaS that lets to host web applications without managing infrastructure.
+The App Service run on the created  **App Service Plan**. This will be used to host a .NET application.
+App Service requires App service plan for alloaction computer resources.
+
+---
+
+## Application Insights
+An **Application Insights** is used for realtime-monitoring Azure web Application. It is linked to App Service using APPINSIGHT_INSTRUMENTATIONKEY in app settings. It is deployed in the same region as App Service. App Insight Live Metricks will show real time telmetric data.
 
 ---
 
