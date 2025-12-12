@@ -1,6 +1,22 @@
 # AzureBicepLearning
-
 # Section 1:
+# Azure Resource Group Overview
+
+## What is a Resource Group?
+A **Resource Group** in Azure is used to group related resources together
+Every resource created in Azure must belong to a resource group.
+The resource group is created using a **Bicep template**
+- **Scope**: Resource groups exist at the **subscription level**.
+- **Region**: This resource group is created in the **France Central** region.
+- **Naming Convention**:  `<Name>-<env>-<region>-<type>`
+
+---
+
+
+
+---
+
+# Section 2:
 
 # Hello World .NET Core App on Azure App Service with Application Insights
 
@@ -8,7 +24,6 @@
 This project demonstrates hosting a **Hello World ASP.NET Core application** on **Azure App Service** with an **App Service Plan** and enabling **Application Insights** for performance monitoring and telemetry.
 
 ---
-
 ## Architecture
 - **App Service Plan**: Provides the hosting environment for the App Service.
 - **App Service**: Runs the .NET Core application.
@@ -16,7 +31,6 @@ This project demonstrates hosting a **Hello World ASP.NET Core application** on 
 - **App Settings**: Stores the **Instrumentation Key** to connect the App Service with Application Insights.
 
 ---
-
 ## Features
 - **Application Performance Monitoring**:
   - Detects application failures.
