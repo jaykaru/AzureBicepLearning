@@ -3,7 +3,7 @@ resource sqlServer 'Microsoft.Sql/servers@2014-04-01' ={
   location: resourceGroup().location
   properties: {
     administratorLogin: 'sqladminuser'
-    administratorLoginPassword: ''
+    administratorLoginPassword: '' // use a strong password in production
     version: '12.0'
   }
 }
