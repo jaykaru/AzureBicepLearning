@@ -7,9 +7,9 @@ param pSqlDatabaseName string = 'database1'
 module AppServicePlan '2.AppServicePlan.bicep' = {
   name: 'deployAppServicePlan'
   params: {
-    pAppInsightsName: pAppInsightsName
     pAppServicePlan: pAppServicePlan
     pWebAppName: pWebAppName
+    pInstrumentationKey: AppInsights.outputs.instrumentationKey
   }
 }
 
@@ -18,6 +18,13 @@ module SQLDatabase '3.SQLDatabase.bicep' = {
   params: {
     pSqlDatabaseName: pSqlDatabaseName 
     pSqlServerName: pSqlServerName
+  }
+}
+
+module AppInsights '4.AppInsights.bicep' = {
+  name: 'deployAppInsights'
+  params: {
+    pAppInsightsName: pAppInsightsName
   }
 }
 
