@@ -1,13 +1,15 @@
 param pSqlServerName string  
 param pSqlDatabaseName string  
-
+param pAdminstratorLogin string
+@secure()
+param pAdministratorPassword string
 
 resource sqlServer 'Microsoft.Sql/servers@2014-04-01' ={
   name: pSqlServerName 
   location: resourceGroup().location
   properties: {
-    administratorLogin: 'sqladminuser'
-    administratorLoginPassword: '' // use a strong password in production
+    administratorLogin: pAdminstratorLogin
+    administratorLoginPassword: pAdministratorPassword // use a strong password in production
     version: '12.0'
   }
 }
@@ -24,8 +26,6 @@ resource sqlServerDatabase 'Microsoft.Sql/servers/databases@2014-04-01' = {
   }
 }
 
-
-
 resource sqlServerFirewallRules 'Microsoft.Sql/servers/firewallRules@2021-02-01-preview' = {
   parent: sqlServer
   name: 'Jay IP address'
@@ -34,4 +34,3 @@ resource sqlServerFirewallRules 'Microsoft.Sql/servers/firewallRules@2021-02-01-
     endIpAddress: '1.1.1.1'
   }
 }
-

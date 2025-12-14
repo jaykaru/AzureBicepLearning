@@ -27,7 +27,7 @@ resource webApplication 'Microsoft.Web/sites@2021-01-15' = {
   name: pWebAppName
   location: resourceGroup().location
   properties: {
-    serverFarmId: resourceId('Microsoft.Web/serverfarms', 'azbicep-dev-fc-asp1')
+    serverFarmId: resourceId('Microsoft.Web/serverfarms', pAppServicePlan) // or can give appServicePlan.name
   }
   dependsOn: [
     appServicePlan

@@ -1,8 +1,12 @@
-param pAppServicePlan string = 'azbicep-dev-fc-asp1'
-param pWebAppName string = 'azbicep-dev-fc-webapp'
-param pAppInsightsName string = 'azbicep-dev-fc-webapp-ai'
-param pSqlServerName string = 'azbicep-dev-fc-sqlserver'
-param pSqlDatabaseName string = 'database1'
+param pAppServicePlan string 
+param pWebAppName string 
+param pAppInsightsName string 
+param pSqlServerName string 
+param pSqlDatabaseName string
+param pAdminstratorLogin string
+@secure()
+param pAdministratorPassword string
+
 
 module AppServicePlan '2.AppServicePlan.bicep' = {
   name: 'deployAppServicePlan'
@@ -18,6 +22,8 @@ module SQLDatabase '3.SQLDatabase.bicep' = {
   params: {
     pSqlDatabaseName: pSqlDatabaseName 
     pSqlServerName: pSqlServerName
+    pAdminstratorLogin: pAdminstratorLogin
+    pAdministratorPassword: pAdministratorPassword
   }
 }
 
