@@ -19,14 +19,15 @@
         },
         "pAdminstratorLogin": {
         "value": "sqladminuser"
-        },
-        "pAdministratorPassword": {
-        "reference": {
-            "keyVault": {
-                "id": "/subscriptions/32a5945b-da3d-48dd-acf7-f51a950dc4f4/resourceGroups/azbicep-common-fc-rg/providers/Microsoft.KeyVault/vaults/azbicep-dev-fc-kv2"
-            },
-            "secretName": "adminsqlserver"
-          }
         }
+        // ,
+        // "pAdministratorPassword": {
+        // "reference": {
+        //     "keyVault": {
+        //         "id": "/subscriptions/32a5945b-da3d-48dd-acf7-f51a950dc4f4/resourceGroups/azbicep-common-fc-rg/providers/Microsoft.KeyVault/vaults/azbicep-dev-fc-kv2"
+        //     },
+        //     "secretName": "adminsqlserverpassword"
+        //   }
+        // }
     }
 }
