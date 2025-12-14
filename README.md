@@ -83,7 +83,7 @@ This project demonstrates hosting a **Hello World ASP.NET Core application** on 
 ---
 
 # Section 3:
-**SqlServer** and **SqlDatabase** resource created using Bicep. **KeyVault** resource created using Azure portal and secret created to store database password.
+**SqlServer** and **SqlDatabase** resource created using Bicep. **KeyVault** resource created in a separate common resource group using Azure portal and secret created to store database password.
 Database access the password using **getSecret()**, which call the secret and reads the password to login to the database.
 **SQLServer Firewall Rules** used to whitelist the IP address inorder to restrict unauthorised access to database SqlServer.
 
