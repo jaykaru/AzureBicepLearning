@@ -4,9 +4,13 @@ param pAppInsightsName string
 param pSqlServerName string 
 param pSqlDatabaseName string
 param pAdminstratorLogin string
-@secure()
-param pAdministratorPassword string
+// @secure()
+// param pAdministratorPassword string
 
+resource keyvault 'Microsoft.KeyVault/vaults@2025-05-01' existing = {
+  name: 'azbicep-dev-fc-kv2'
+  scope: resourceGroup('azbicep-common-fc-rg')
+}
 
 module AppServicePlan '2.AppServicePlan.bicep' = {
   name: 'deployAppServicePlan'
@@ -23,7 +27,7 @@ module SQLDatabase '3.SQLDatabase.bicep' = {
     pSqlDatabaseName: pSqlDatabaseName 
     pSqlServerName: pSqlServerName
     pAdminstratorLogin: pAdminstratorLogin
-    pAdministratorPassword: pAdministratorPassword
+    pAdministratorPassword: keyvault.getSecret('adminsqlserverpassword')
   }
 }
 
