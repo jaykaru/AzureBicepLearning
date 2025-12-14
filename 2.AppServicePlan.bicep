@@ -1,5 +1,9 @@
+param pAppServicePlan string  
+param pWebAppName string  
+param pInstrumentationKey string
+
 resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
-  name: 'azbicep-dev-fc-asp1'
+  name: pAppServicePlan
   location: resourceGroup().location
   sku: {
     name: 'S1'
@@ -20,10 +24,10 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
 // }
 
 resource webApplication 'Microsoft.Web/sites@2021-01-15' = {
-  name: 'azbicep-dev-fc-webapp'
+  name: pWebAppName
   location: resourceGroup().location
   properties: {
-    serverFarmId: resourceId('Microsoft.Web/serverfarms', 'azbicep-dev-fc-asp1')
+    serverFarmId: resourceId('Microsoft.Web/serverfarms', pAppServicePlan) // or can give appServicePlan.name
   }
   dependsOn: [
     appServicePlan
@@ -37,7 +41,7 @@ resource azbicepwebapp1appsetting 'Microsoft.Web/sites/config@2025-03-01'  = {
     appSettings: [
       {
         name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-        value: appInsightsComponents.properties.InstrumentationKey
+        value: pInstrumentationKey 
       }
       {
         name: 'key2'
@@ -48,14 +52,7 @@ resource azbicepwebapp1appsetting 'Microsoft.Web/sites/config@2025-03-01'  = {
 }
   
 
-resource appInsightsComponents 'Microsoft.Insights/components@2020-02-02' = {
-  name: 'azbicep-dev-fc-webapp-ai'
-  location: resourceGroup().location
-  kind: 'web'
-  properties: {
-    Application_Type: 'web'
-  }
-}
+
 
 
 
