@@ -79,3 +79,27 @@ This project demonstrates hosting a **Hello World ASP.NET Core application** on 
 ## How It Works
 - The App Service sends telemetry data (requests, exceptions, performance metrics) to Application Insights using the Instrumentation Key.
 - Application Insights processes and visualizes the data, enabling proactive monitoring and alerting.
+
+---
+
+# Section 3:
+**SqlServer** and **SqlDatabase** resource created using Bicep. **KeyVault** resource created using Azure portal and secret created to store database password.
+Database access the password using **getSecret()**, which call the secret and reads the password to login to the database.
+**SQLServer Firewall Rules** used to whitelist the IP address inorder to restrict unauthorised access to database SqlServer.
+
+In order for ARM to read the secret from Key Vault, KeyVault Access Policy was used with Azure Resource Manager for template deployment. In this option ARM can read the secret from key vault. RBAC is failing to get secret eventhough Rolebase Access permission is given to Key Vault Admin role.
+
+---
+# Section 4:
+
+**Module** Bicep created to call all child modules. Created module for each of the resource which calls the child module and deploy the resources in Azure.
+
+---
+
+# Section 5:
+
+Parameters created using key word **param** to store the values and refer the name in the resources created.
+
+In order to deploy **Multiple Environment**, Created Dev,Stage,Prod resourcegroups using Bicep template at france-central location at subscription level and have created dev,stage & prod parameters json files which contains parameter values for Appserviceplan, Appservice, AppInsight, SqlServerName, DatabaseName & AdminLogin.
+
+---
