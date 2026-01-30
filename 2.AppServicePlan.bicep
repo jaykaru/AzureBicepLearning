@@ -1,12 +1,14 @@
 param pAppServicePlan string  
 param pWebAppName string  
 param pInstrumentationKey string
+param pSKUName string
+
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
   name: pAppServicePlan
   location: resourceGroup().location
   sku: {
-    name: 'S1'
+    name: pSKUName
     capacity: 1
   }
 }

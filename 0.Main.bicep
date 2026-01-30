@@ -6,6 +6,9 @@ param pSqlDatabaseName string
 param pAdminstratorLogin string
 // @secure()
 // param pAdministratorPassword string
+@allowed(['F1','B1','B2','B3','S1','S2','S3'])
+param pSKUName string
+
 
 resource keyvault 'Microsoft.KeyVault/vaults@2025-05-01' existing = {
   name: 'azbicep-dev-fc-kv2'
@@ -18,6 +21,7 @@ module AppServicePlan '2.AppServicePlan.bicep' = {
     pAppServicePlan: pAppServicePlan
     pWebAppName: pWebAppName
     pInstrumentationKey: AppInsights.outputs.instrumentationKey
+    pSKUName: pSKUName
   }
 }
 

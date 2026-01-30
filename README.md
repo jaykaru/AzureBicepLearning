@@ -103,3 +103,13 @@ Parameters created using key word **param** to store the values and refer the na
 In order to deploy **Multiple Environment**, Created Dev,Stage,Prod resourcegroups using Bicep template at france-central location at subscription level and have created dev,stage & prod parameters json files which contains parameter values for Appserviceplan, Appservice, AppInsight, SqlServerName, DatabaseName & AdminLogin.
 
 ---
+
+# Section 6:
+
+**Parameter Dectorators**
+In order to restrict parameter values we use @allowed() key word
+In order to show the available SKUType we can say @allowed(['B1','B2','S1','S2'])
+Parameter  Decorators
+
+
+---
