@@ -7,6 +7,10 @@ param pAdminstratorLogin string
 // @secure()
 // param pAdministratorPassword string
 
+param pSKUName string = 'S1'
+param pSKUCapacity int = 1
+
+
 resource keyvault 'Microsoft.KeyVault/vaults@2025-05-01' existing = {
   name: 'azbicep-dev-fc-kv2'
   scope: resourceGroup('azbicep-common-fc-rg')
@@ -18,6 +22,8 @@ module AppServicePlan '2.AppServicePlan.bicep' = {
     pAppServicePlan: pAppServicePlan
     pWebAppName: pWebAppName
     pInstrumentationKey: AppInsights.outputs.instrumentationKey
+    pSKUName: pSKUName
+    pSKUCapacity: pSKUCapacity
   }
 }
 
