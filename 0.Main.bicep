@@ -1,4 +1,4 @@
-param Env string = 'dev'
+param Env string = 'prod'
 param pAppServicePlan string 
 param pWebAppName string 
 param pAppInsightsName string 
@@ -25,6 +25,7 @@ module AppServicePlan '2.AppServicePlan.bicep' = {
     pInstrumentationKey: AppInsights.outputs.instrumentationKey
     pSKUName: pSKUName
     pSKUCapacity: pSKUCapacity
+    pEnv: Env
   }
 }
 
