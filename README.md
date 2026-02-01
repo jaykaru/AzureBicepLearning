@@ -110,6 +110,30 @@ In order to deploy **Multiple Environment**, Created Dev,Stage,Prod resourcegrou
 In order to restrict parameter values we use @allowed() key word
 In order to show the available SKUType we can say @allowed(['B1','B2','S1','S2'])
 Parameter  Decorators
+@description('''
+Please provide a valid SKU name The allowed values are 
+- F1
+- B1
+- B2
+- B3
+- S1
+- S2
+- S3
+''')
+
+**Supported Decorators**
+
+@secure()  - Use For Passwords 
+@allowed() - Specified value
+@description() - Description value
+@metadata() - Description more information for the param
+@maxLength() - Max Length
+@minLength() - Min Length
+@maxValue() - Maximum Value
+@minValue() - Minimum Value
+
+**ARM Template**
+Deployment - Template - Deploy 
 
 
 ---

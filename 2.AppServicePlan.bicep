@@ -1,7 +1,22 @@
 param pAppServicePlan string  
 param pWebAppName string  
 param pInstrumentationKey string
+@description('''
+Please provide a valid SKU name The allowed values are 
+- F1
+- B1
+- B2
+- B3
+- S1
+- S2
+- S3
+''')
+@allowed(['F1','B1','B2','B3','S1','S2','S3'])
 param pSKUName string
+@minValue(1)
+@maxValue(30)
+param pSKUCapacity int
+
 
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
@@ -9,7 +24,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
   location: resourceGroup().location
   sku: {
     name: pSKUName
-    capacity: 1
+    capacity: pSKUCapacity
   }
 }
 // resource appServicePlanLinux 'Microsoft.Web/serverfarms@2020-12-01' = {

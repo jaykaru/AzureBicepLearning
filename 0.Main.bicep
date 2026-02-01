@@ -6,8 +6,9 @@ param pSqlDatabaseName string
 param pAdminstratorLogin string
 // @secure()
 // param pAdministratorPassword string
-@allowed(['F1','B1','B2','B3','S1','S2','S3'])
-param pSKUName string
+
+param pSKUName string = 'S1'
+param pSKUCapacity int = 1
 
 
 resource keyvault 'Microsoft.KeyVault/vaults@2025-05-01' existing = {
@@ -22,6 +23,7 @@ module AppServicePlan '2.AppServicePlan.bicep' = {
     pWebAppName: pWebAppName
     pInstrumentationKey: AppInsights.outputs.instrumentationKey
     pSKUName: pSKUName
+    pSKUCapacity: pSKUCapacity
   }
 }
 
