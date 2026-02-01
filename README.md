@@ -154,3 +154,13 @@ if (pEnv == 'Env') = { do this deployment }
 
 
 ---
+
+# Section 7:
+
+**Azure Bicep - Serverless Functions**
+
+In Azure Function, all underlying infrastructure and scalling up and scalling down is managed by Azure. If no request at all then there will be no servers at all will be created. 
+
+Function App resides with App Service Plan and depends on Storage account and it is needed to store diagnostic information. Storage account is linked with connection string of storage account and Azure function. You can also havve App Insight connected to Azure function and connected using Instrumentation Key of Appsight with Azure function configuration, but App Insight is not mandatory for Azure Function.
+
+We are using a spearate Serverless.bicep file to call the child module StorageAccount.bicep for Azure Function. 
