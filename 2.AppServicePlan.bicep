@@ -1,3 +1,4 @@
+param pEnv string 
 param pAppServicePlan string  
 param pWebAppName string  
 param pInstrumentationKey string
@@ -39,6 +40,15 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
 //     capacity: 1
 //   }
 // }
+
+resource webAppSlot 'Microsoft.Web/sites/slots@2025-03-01' = if (pEnv == 'dev') {
+  name: '${pWebAppName}-slot'
+  location: resourceGroup().location
+  parent : webApplication  // parent should be web app
+  properties: {
+    serverFarmId: appServicePlan.id
+  }
+}
 
 resource webApplication 'Microsoft.Web/sites@2021-01-15' = {
   name: pWebAppName
