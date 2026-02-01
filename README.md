@@ -142,11 +142,13 @@ Deployment - Template - Deploy
 # Section 7:
 
 **Bicep Conditonal Expression**
+
 If the environment is Dev it should take S1 if not it should take S2
 (Env) ? TrueValue : FalseValue
 ('dev') ? 'S1' : 'S2'
 
 **Bicep Conditional Deployment**
+
 If you want to deploy a resource to only those environment you should create a if condition in that resource block.
 if (pEnv == 'Env') = { do this deployment } 
 
