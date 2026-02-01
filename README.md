@@ -155,7 +155,7 @@ if (pEnv == 'Env') = { do this deployment }
 
 ---
 
-# Section 7:
+# Section 8:
 
 **Azure Bicep - Serverless Functions**
 
