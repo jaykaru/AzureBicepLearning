@@ -1,3 +1,4 @@
+param Env string = 'dev'
 param pAppServicePlan string 
 param pWebAppName string 
 param pAppInsightsName string 
@@ -7,8 +8,8 @@ param pAdminstratorLogin string
 // @secure()
 // param pAdministratorPassword string
 
-param pSKUName string = 'S1'
-param pSKUCapacity int = 1
+param pSKUName string = (Env == 'dev') ? 'S1' : 'S2'
+param pSKUCapacity int = (Env == 'dev') ? 1 : 2
 
 
 resource keyvault 'Microsoft.KeyVault/vaults@2025-05-01' existing = {
