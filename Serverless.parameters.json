@@ -3,7 +3,22 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "pStorageAccountName": {
-            "value": "azbicep-dev-fc-storage"
+            "value": "azbicepdevfcstrg1"
+        },
+        "pAppservicePlanName": {
+            "value": "azbicep-dev-fc-linux-asp1"
+        },
+        "pFunctionAppName": {
+            "value": "azbicep-dev-fc-fapp1"
+        },
+        "pSKUName": {
+            "value": "S1"
+        },
+        "pSKUCapacity": {
+            "value": 1
+        },
+        "pAppInsightsName": {
+            "value": "azbicep-dev-fc-appinsights"
         }
     }
 }
