@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "pStorageAccountName": {
+            "value": "azbicepdevfcstrg1"
+        },
+        "pAppservicePlanName": {
+            "value": "azbicep-dev-fc-linux-asp1"
+        },
+        "pFunctionAppName": {
+            "value": "azbicep-dev-fc-fapp1"
+        },
+        "pSKUName": {
+            "value": "S1"
+        },
+        "pSKUCapacity": {
+            "value": 1
+        },
+        "pAppInsightsName": {
+            "value": "azbicep-dev-fc-appinsights"
+        }
+    }
+}

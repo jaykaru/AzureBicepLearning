@@ -92,7 +92,7 @@ In order for ARM to read the secret from Key Vault, KeyVault Access Policy was u
 ---
 # Section 4:
 
-**Module** Bicep created to call all child modules. Created module for each of the resource which calls the child module and deploy the resources in Azure.
+**Module** Main Bicep module created to call all child modules. Module created for each of the resource which calls all the child module and deploy the resources in Azure.
 
 ---
 
@@ -109,7 +109,7 @@ In order to deploy **Multiple Environment**, Created Dev,Stage,Prod resourcegrou
 **Parameter Dectorators**
 In order to restrict parameter values we use @allowed() key word
 In order to show the available SKUType we can say @allowed(['B1','B2','S1','S2'])
-Parameter  Decorators
+To give a descrpition to a parameter 
 @description('''
 Please provide a valid SKU name The allowed values are 
 - F1
@@ -123,6 +123,8 @@ Please provide a valid SKU name The allowed values are
 
 **Supported Decorators**
 
+These are the supported decorators in Azure.
+
 @secure()  - Use For Passwords 
 @allowed() - Specified value
 @description() - Description value
@@ -133,6 +135,8 @@ Please provide a valid SKU name The allowed values are
 @minValue() - Minimum Value
 
 **ARM Template**
+
+To deploy ARM template or to check the Deployable ARM values for the resources, you need to check at the following section: 
 Deployment - Template - Deploy 
 
 
@@ -149,8 +153,25 @@ If the environment is Dev it should take S1 if not it should take S2
 
 **Bicep Conditional Deployment**
 
-If you want to deploy a resource to only those environment you should create a if condition in that resource block.
+If you want to deploy a resource to a particular environment you should create a if condition in that resource block.
 if (pEnv == 'Env') = { do this deployment } 
 
 
 ---
+
+# Section 8:
+
+**Azure Bicep - Serverless Functions**
+
+In Azure Function, all underlying infrastructure and scalling up and scalling down is managed by Azure. If there is no request at all, then there will be no servers at all will be created. 
+
+Function App resides with App Service Plan and depends on Storage account and it is needed to store diagnostic information. Storage account is linked with connection string of storage account and Azure function. You can also have App Insight connected to Azure function and connected using Instrumentation Key of Appsight with Azure function configuration, but App Insight is not mandatory for Azure Function.
+
+We are using a spearate Serverless.bicep file to call the child module StorageAccount.bicep, 4.AppInsight.bicep and AzureFunctionApp.bicep to deploy Azure Function, Storage Account and AppInsight and make necessary connection for Azure Function to work as expected. 
+
+
+**Dynamically Retrive Acces Keys for Storage Account**
+
+listKeys(storageAccount Id, app version) method returns an Array of keys and we have 2 keys on Azure for Storage Account, on that where we select the first key, key[0].
+
+Once you deploy Function App to Azure cloud environment, you can check all the appliction settings you want in the Azure Function App. To check the Application Settings you need to go to settings - Environment Variables - application settings.
