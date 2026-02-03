@@ -5,7 +5,7 @@ param pSKUName string
 param pSKUCapacity int 
 param pFunctionAppName string
 param pAppInsightsName string
-param pInstrumentationKey string
+
 
 
 
@@ -35,7 +35,7 @@ module functionAppModule 'AzureFunctionApp.bicep' = {
     pLocation: pLocation
     pStorageAccountId: storageAccountModule.outputs.storageAccountId
     pStorageAccountName: pStorageAccountName
-    pInstrumentationKey: pInstrumentationKey
+    pInstrumentationKey: appInsightsModule.outputs.instrumentationKey
   }
 }
 
