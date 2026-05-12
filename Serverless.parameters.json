@@ -9,7 +9,7 @@
             "value": "azbicep-dev-fc-linux-asp1"
         },
         "pFunctionAppName": {
-            "value": "azbicep-dev-fc-fapp1"
+            "value": "azbicep-dev-fc-fapp"
         },
         "pSKUName": {
             "value": "S1"
