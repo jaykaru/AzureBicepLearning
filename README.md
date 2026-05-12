@@ -188,3 +188,5 @@ We are creating multiple AppInsight and Azure Function App using for loop with r
 # Section 11:
 
 **Key Vault Creation**
+We have created KeyVault, keys and secret in separate resource block of code.
+Keys list property added to list the keys and Secret set property is added to create secret. 
