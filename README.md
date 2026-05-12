@@ -175,3 +175,16 @@ We are using a spearate Serverless.bicep file to call the child module StorageAc
 listKeys(storageAccount Id, app version) method returns an Array of keys and we have 2 keys on Azure for Storage Account, on that where we select the first key, key[0].
 
 Once you deploy Function App to Azure cloud environment, you can check all the appliction settings you want in the Azure Function App. To check the Application Settings you need to go to settings - Environment Variables - application settings.
+
+# Section 9:
+
+In Azure Function to get get Instrumentation key, you can use the Interumentation key you got from AppIsight output, but if you are using refererence() you can get the all object and in that you should get AppInsightId, which you should reference in Serverless.bicep module. To get AppInsightId from AppInsight module you need to create a output called oAppInisghtId. You can use both ways, if you are not using reference method you can use instrmentation key output.
+
+# Section 10:
+
+**Multiple App Insight and Azure Function creation**
+We are creating multiple AppInsight and Azure Function App using for loop with range method with startIndex and countValue. This will loop and get Index value for each iteration. Name and pFunctionAppName has been concatinated with Index to get multiple App Insight and Function name
+
+# Section 11:
+
+**Key Vault Creation**
