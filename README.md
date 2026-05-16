@@ -204,3 +204,15 @@ we can get the username and password for the CR and then we can authenticate to 
 
 To check username and login server info:
 Setting - Access Keys - to check username, Registry Name, loginserver and Password. 
+
+To check repository:
+Services - Repositories
+
+Commands:
+Help to publish the bicep modules to CR:  az bicep publish -h
+this will give help command to get other paratmeters
+importanat parameters: --file -f ( The path to the BICEP module file to publish in the file system)
+--target -t ( The target location where the BICEP module will be published )
+
+Actual full Command:    az bicep publish --file {bicep_file} --target "br:{registry}/{module_path}:{tag}"
+Ex:     az bicep publish --file 2.AppServicePlan.bicep --target "br:azurebicepmodulescr1.azurecr.io/2.appserviceplan:v1" 
