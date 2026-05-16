@@ -5,6 +5,8 @@ param pSKUName string
 param pSKUCapacity int 
 param pFunctionAppName string
 param pAppInsightsName string
+param pStartIndex int = 1
+param pCount int = 5
 
 
 
@@ -26,22 +28,23 @@ module appServicePlanLinuxModule 'AppServicePlan-Linux.bicep' = {
     pLocation: pLocation
   }
 }
-
-module functionAppModule 'AzureFunctionApp.bicep' = {
-  name: 'deployFunctionApp'
+module functionAppModule 'AzureFunctionApp.bicep' = [for Index in range(pStartIndex, pCount) :{
+  name: 'deployFunctionApp-${Index}'
   params: {
-    pFunctionAppName: pFunctionAppName
+    pFunctionAppName: '${pFunctionAppName}-${Index}'
     pServerFarmId: appServicePlanLinuxModule.outputs.appServicePlanId
     pLocation: pLocation
     pStorageAccountId: storageAccountModule.outputs.storageAccountId
     pStorageAccountName: pStorageAccountName
-    pInstrumentationKey: appInsightsModule.outputs.instrumentationKey
+    pInstrumentationKey: appInsightsModule[Index -pStartIndex].outputs.oInstrumentationKey
+    // pAppInsightsId: appInsightsModule.outputs.oAppInsightsId
   }
-}
+}]
 
-module appInsightsModule '4.AppInsights.bicep' = {
-  name: 'deployAppInsights'
+module appInsightsModule '4.AppInsights.bicep' = [for Index in range(pStartIndex, pCount) :{
+  name: 'deployAppInsights-${Index}'
   params: {
-    pAppInsightsName: pAppInsightsName
+    pAppInsightsName: '${pAppInsightsName}-${Index}'
   }
-}
+}]
+
