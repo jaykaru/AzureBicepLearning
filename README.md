@@ -214,5 +214,9 @@ this will give help command to get other paratmeters
 importanat parameters: --file -f ( The path to the BICEP module file to publish in the file system)
 --target -t ( The target location where the BICEP module will be published )
 
-Actual full Command:    az bicep publish --file {bicep_file} --target "br:{registry}/{module_path}:{tag}"
-Ex:     az bicep publish --file 2.AppServicePlan.bicep --target "br:azurebicepmodulescr1.azurecr.io/2.appserviceplan:v1" 
+Actual full Command: az bicep publish --file {bicep_file} --target "br:{registry}/{module_path}:{tag}"
+Ex: az bicep publish --file 2.AppServicePlan.bicep --target "br:azurebicepmodulescr1.azurecr.io/2.appserviceplan:v1" 
+
+Once you have pushed your bicep resources to registry you can create main.bicep file and call those modules, referencing from the registry to deploy the resources to the resource group.
+
+Call the module:  module appServiceModule 'br:azurebicepmodulescr1.azurecr.io/2.appserviceplan:v1' {}
