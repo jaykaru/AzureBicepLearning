@@ -190,3 +190,33 @@ We are creating multiple AppInsight and Azure Function App using for loop with r
 **Key Vault Creation**
 We have created KeyVault, keys and secret in separate resource block of code.
 Keys list property added to list the keys and Secret set property is added to create secret. 
+
+# Section 12:
+
+**Azure Container Registry**
+Azure container Registry is created to host common bicep modules. All the business unit can invoke these modules by passing their own parameters. 
+
+Enable authentication for the Container Registry, because once CR is created the repositories is created,
+the way we create repo is we are going to publish the Azure Bicep modules from this machine.
+From this machine we need to authenticate ourselfs to the CR, in order to do that we need to enable authentication,
+the we enable authenciation is by setting properties adminUserEnabled to true, once we set that to true then
+we can get the username and password for the CR and then we can authenticate to the CR and then we can publish the modules to the CR. 
+
+To check username and login server info:
+Setting - Access Keys - to check username, Registry Name, loginserver and Password. 
+
+To check repository:
+Services - Repositories
+
+Commands:
+Help to publish the bicep modules to CR:  az bicep publish -h
+this will give help command to get other paratmeters
+importanat parameters: --file -f ( The path to the BICEP module file to publish in the file system)
+--target -t ( The target location where the BICEP module will be published )
+
+Actual full Command: az bicep publish --file {bicep_file} --target "br:{registry}/{module_path}:{tag}"
+Ex: az bicep publish --file 2.AppServicePlan.bicep --target "br:azurebicepmodulescr1.azurecr.io/2.appserviceplan:v1" 
+
+Once you have pushed your bicep resources to registry you can create main.bicep file and call those modules, referencing from the registry to deploy the resources to the resource group.
+
+Call the module:  module appServiceModule 'br:azurebicepmodulescr1.azurecr.io/2.appserviceplan:v1' {}
