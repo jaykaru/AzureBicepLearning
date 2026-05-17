@@ -41,8 +41,8 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
 //   }
 // }
 
-resource webAppSlot 'Microsoft.Web/sites/slots@2025-03-01' = if (pEnv == 'dev') {
-  name: '${pWebAppName}-slot'
+resource webAppSlot 'Microsoft.Web/sites/slots@2025-03-01' = if (pEnv == 'stage') {
+  name: 'stagging'
   location: resourceGroup().location
   parent : webApplication  // parent should be web app
   properties: {
