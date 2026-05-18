@@ -255,6 +255,21 @@ Support for virtual networks and private end point is available
   Kind property is required, here logic apps sits on tops of function apps so you need to give kind: functionapp,worflowapp) [ workflowapp differenitate this is a logic apps from function app.]
 - Optionally we can have Application Insights 
 - Logic Apps configuration information like connection settings of storage account is stored in one App Settings and storing Instrumentation key of App Insight you need another App Settings.  
-- Within Storage account we need File Share 
+- Within Storage account we need File Share ( Storange Account module need to be created first and then call existing storage account, if not you will get dependency error )
 - Within App Insight we need Log Analytics Workspace (LAW) 
+
+**In AppSettings property**
+- WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: 'DefaultEndpointsProtocol=https;AccountName=<STORANGEAccountName>;AccountKey=<KEYS>;EndpointSuffix=core.windows.net' 
+
+How to get keys: Call Existing Stroage account by creating storageAccount Existing block and call the first key (storageAccount.listKeys().keys[0].value) 
+
+
+**FileShare**
+You need to create file share in Storage account to use in Logic Apps, Logic Apps run time need persistant file system to create file share in storage account for logic apps
+
+Logic App Standard (single-tenant) into a normal App Service Plan (like S1/B1/F1). That is not allowed. Logic App Standard must run on:
+a WorkflowStandard plan (WS1 / WS2 / WS3, tier WorkflowStandard)
+
+Logic app Resource kind value for linux App Service Plan:'functionapp,linux,workflowapp'
+Windows App Service Plan kind value: 'functionapp,workflowapp'
 
