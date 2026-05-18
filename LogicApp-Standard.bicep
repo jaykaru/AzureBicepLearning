@@ -1,7 +1,7 @@
 param pLocation string = resourceGroup().location
 param pAppServicePlanName string = 'az-bicep-dev-fc-appserviceplan'
 param pLogicAppName string = 'az-bicep-dev-fc-logicapp-standard'
-param pAppInsightsName string  = 'az-bicep-dev-fc-appinsights'
+param pAppInsightsName string = 'az-bicep-dev-fc-appinsights'
 param pStorangeAccountName string = 'azbicepdevfcstorage'
 param pFileShare string = 'logicappfileshare'
 
@@ -12,19 +12,16 @@ module storageAccount_module '5.StorageAccount.bicep' = {
     pLocation: pLocation
     pFileShareName: pFileShare // You can customize the file share name as needed.
   }
-} 
+}
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' existing = {
   name: pStorangeAccountName
 }
-
-
-
 resource LogicApp_Standard 'Microsoft.Web/sites@2021-02-01' = {
   name: pLogicAppName
   location: pLocation
   kind: 'functionapp,linux,workflowapp' // The 'functionapp' kind is required for Logic Apps Standard, and 'workflowapp' is used to indicate that this is a Logic App.
-  properties:{
+  properties: {
     serverFarmId: AppServicePlan_module.outputs.appServicePlanId // The App Service Plan must have the same name as the Logic App for Logic Apps Standard.
     siteConfig: {
       netFrameworkVersion: 'v4.0' // Logic Apps Standard requires .NET Framework 4.0 or higher.
@@ -47,9 +44,9 @@ module AppServicePlan_module 'AppServicePlan-Linux.bicep' = {
 module appinsights_module '4.AppInsights.bicep' = {
   name: 'appinsights_module'
   params: {
-   pAppInsightsName: pAppInsightsName
+    pAppInsightsName: pAppInsightsName
     pLocation: pLocation
- }
+  }
 }
 
 resource appsettings 'Microsoft.Web/sites/config@2021-02-01' = {
