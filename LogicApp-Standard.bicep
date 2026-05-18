@@ -1,20 +1,49 @@
-param pLogicAppName string
-param pLocation string
-param pAppServicePlanId string
-param pAppInsightsName string 
+param pLocation string = resourceGroup().location
+param pAppServicePlanName string = 'az-bicep-dev-fc-appserviceplan'
+param pLogicAppName string = 'az-bicep-dev-fc-logicapp-standard'
+param pAppInsightsName string  = 'az-bicep-dev-fc-appinsights'
+param pStorangeAccountName string = 'azbicepdevfcstorage'
+param pFileShare string = 'logicappfileshare'
+
+module storageAccount_module '5.StorageAccount.bicep' = {
+  name: 'storageAccount_module'
+  params: {
+    pStorageAccountName: pStorangeAccountName // You can customize the storage account name as needed.
+    pLocation: pLocation
+    pFileShareName: pFileShare // You can customize the file share name as needed.
+  }
+} 
+
+resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' existing = {
+  name: pStorangeAccountName
+}
+
+
+
 resource LogicApp_Standard 'Microsoft.Web/sites@2021-02-01' = {
   name: pLogicAppName
   location: pLocation
-  kind: 'functionapp,workflowapp' // The 'functionapp' kind is required for Logic Apps Standard, and 'workflowapp' is used to indicate that this is a Logic App.
+  kind: 'functionapp,linux,workflowapp' // The 'functionapp' kind is required for Logic Apps Standard, and 'workflowapp' is used to indicate that this is a Logic App.
   properties:{
-    serverFarmId: pAppServicePlanId // The App Service Plan must have the same name as the Logic App for Logic Apps Standard.
+    serverFarmId: AppServicePlan_module.outputs.appServicePlanId // The App Service Plan must have the same name as the Logic App for Logic Apps Standard.
     siteConfig: {
       netFrameworkVersion: 'v4.0' // Logic Apps Standard requires .NET Framework 4.0 or higher.
       functionsRuntimeScaleMonitoringEnabled: false // Disable scale monitoring for Logic Apps Standard.
     }
   }
+  dependsOn: [
+    appinsights_module
+    storageAccount_module
+  ]
 }
 
+module AppServicePlan_module 'AppServicePlan-Linux.bicep' = {
+  name: 'AppServicePlan'
+  params: {
+    pAppservicePlanName: pAppServicePlanName // The App Service Plan must have the same name as the Logic App for Logic Apps Standard.
+    pLocation: pLocation
+  }
+}
 module appinsights_module '4.AppInsights.bicep' = {
   name: 'appinsights_module'
   params: {
@@ -31,6 +60,7 @@ resource appsettings 'Microsoft.Web/sites/config@2021-02-01' = {
     APPINSIGHTS_INSTRUMENTATIONKEY: appinsights_module.outputs.oInstrumentationKey // You can add your Application Insights instrumentation key here if you want to enable monitoring for your Logic App Standard.
     FUNCTIONS_EXTENSION_VERSION: '~4' // Logic Apps Standard requires Azure Functions runtime version 3.x or higher.  
     FUNCTIONS_WORKER_RUNTIME: 'node' // You can specify the worker runtime for your Logic App Standard. In this example, we are using Node.js, but you can choose from other supported runtimes such as .NET, Python, etc.
-
+    WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: 'DefaultEndpointsProtocol=https;AccountName=${pStorangeAccountName};AccountKey=${storageAccount.listKeys().keys[0].value};EndpointSuffix=core.windows.net' // This app setting is used to connect your Logic App Standard to the storage account created in the storageAccount_module. 
+    WEBSITE_CONTENTSHARE: pFileShare // This app setting is used to specify the name of the file share that will be used by your Logic App Standard to store its content. You can customize the name as needed.
   }
 }
