@@ -220,3 +220,56 @@ Ex: az bicep publish --file 2.AppServicePlan.bicep --target "br:azurebicepmodule
 Once you have pushed your bicep resources to registry you can create main.bicep file and call those modules, referencing from the registry to deploy the resources to the resource group.
 
 Call the module:  module appServiceModule 'br:azurebicepmodulescr1.azurecr.io/2.appserviceplan:v1' {}
+
+# Section 13:
+
+**Azure Logic Apps**
+
+Logic Apps Types – when you want functionality of two service, you can use, It is Drag and Drop UI 
+
+**Consumption**
+
+It is called as multi- Tenant Logic Apps 
+
+Can have only one workflow in a given Logic Apps 
+
+Creating custom connectors is not straight forward (Drag and drop different services are called connectors ) 
+
+Support for Virtual Network and Private Endpoint is not allowed  
+
+**Standard** 
+
+It is called as Single Tenant Logic Apps 
+
+Can have multiple workflows (workflow is nothing but steps each steps connection different component, email is one component and adding attachment to one drive, here one drive is another service.  ) in one Logic Apps 
+
+Creating custom connectors is easy  
+
+Support for virtual networks and private end point is available 
+
+**Requirements to Create Logic Apps** 
+
+- Create App Service Plan 
+- Logic account need storage account to store all diagnostic data and also to store workflow based code 
+- Create Logic Apps ( Resource types should be Microsoft.Web/sites, which means it sits on top of App Service 
+  Kind property is required, here logic apps sits on tops of function apps so you need to give kind: functionapp,worflowapp) [ workflowapp differenitate this is a logic apps from function app.]
+- Optionally we can have Application Insights 
+- Logic Apps configuration information like connection settings of storage account is stored in one App Settings and storing Instrumentation key of App Insight you need another App Settings.  
+- Within Storage account we need File Share ( Storange Account module need to be created first and then call existing storage account, if not you will get dependency error )
+- Within App Insight we need Log Analytics Workspace (LAW) 
+
+**In AppSettings property**
+- WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: 'DefaultEndpointsProtocol=https;AccountName=<STORANGEAccountName>;AccountKey=<KEYS>;EndpointSuffix=core.windows.net' 
+
+How to get keys: Call Existing Stroage account by creating storageAccount Existing block and call the first key (storageAccount.listKeys().keys[0].value) 
+
+
+**FileShare**
+You need to create file share in Storage account to use in Logic Apps, Logic Apps run time need persistant file system to create file share in storage account for logic apps
+
+Logic App Standard (single-tenant) into a normal App Service Plan (like S1/B1/F1). That is not allowed. Logic App Standard must run on:
+a WorkflowStandard plan (WS1 / WS2 / WS3, tier WorkflowStandard)
+
+Logic app Resource kind value for linux App Service Plan:'functionapp,linux,workflowapp'
+Windows App Service Plan kind value: 'functionapp,workflowapp'
+

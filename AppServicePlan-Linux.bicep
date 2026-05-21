@@ -1,5 +1,5 @@
 param pAppservicePlanName string 
-param pSKUName string = 'S1'
+param pSKUName string = 'WS1'//'S1' // WS1 and above sku is supported for logic Apps Standard, S1 is supported for both Web Apps and Logic Apps Standard.
 param pSKUCapacity int = 1
 param pLocation string = resourceGroup().location
 
