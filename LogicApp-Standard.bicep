@@ -4,6 +4,7 @@ param pLogicAppName string = 'az-bicep-dev-fc-logicapp-standard'
 param pAppInsightsName string = 'az-bicep-dev-fc-appinsights'
 param pStorangeAccountName string = 'azbicepdevfcstorage'
 param pFileShare string = 'logicappfileshare'
+// param pWorkspaceName string = 'az-bicep-dev-fc-logicapp-standard-law'
 
 module storageAccount_module '5.StorageAccount.bicep' = {
   name: 'storageAccount_module'
@@ -33,6 +34,39 @@ resource LogicApp_Standard 'Microsoft.Web/sites@2021-02-01' = {
     storageAccount_module
   ]
 }
+
+resource loganalytics_workspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
+  name: '${pLogicAppName}-law'
+  location: pLocation
+  properties: {
+    sku: {
+      name: 'PerGB2018'
+    }
+  }
+}
+
+resource logicapps_diagsettings 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = {
+  name: '${pLogicAppName}-diagsettings'
+  scope: LogicApp_Standard // resource symbolic name of the Logic App Standard resource
+  properties: {
+    // workspaceId: resourceId('Microsoft.OperationalInsights/workspaces/', pWorkspaceName) // Connect the diagnostic settings to the Log Analytics workspace created in this Bicep file.
+    workspaceId: loganalytics_workspace.id // Connect the diagnostic settings to the Log Analytics workspace created in this Bicep file.
+    logs: [
+    {
+      categoryGroup: 'allLogs'
+      enabled: true
+    }
+    ]
+    metrics: [
+      {
+        category: 'AllMetrics'
+        enabled: true
+      }
+    ]
+  }
+  
+}
+
 
 module AppServicePlan_module 'AppServicePlan-Linux.bicep' = {
   name: 'AppServicePlan'
