@@ -273,3 +273,16 @@ a WorkflowStandard plan (WS1 / WS2 / WS3, tier WorkflowStandard)
 Logic app Resource kind value for linux App Service Plan:'functionapp,linux,workflowapp'
 Windows App Service Plan kind value: 'functionapp,workflowapp'
 
+# Section 14:
+
+**Log Analytics Workspace**
+Create Log Analytics Workspace resource to send LogicApps diagnostic information
+
+**Logic Apps DiagnosticSettings**
+
+Create Logic Apps DiagnosticSettings resouce with following properties:
+workspaceId: symoblicnameoflaw.id
+logs: [{ categoryGroup: 'allLogs', enabled: true }]
+metrics: [{ category: 'AllMetrics', enabled: true }]
+
+Once you enabled diagnostic settings for logicApps you can view diagnostic settings under Logic Apps - monitoring - Diagnostic settings, you can click Edit Settings to see all enabled properties
