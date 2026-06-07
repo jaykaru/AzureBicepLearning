@@ -1,10 +1,12 @@
 using './0.Main.bicep'
 
+var prefix = loadJsonContent('sharedvariables.json')
+
 param pEnv = 'prod'
-param pAppServicePlan = 'azbicep-prod-fc-asp1'
-param pWebAppName = 'azbicep-prod-fc-webapp'
-param pAppInsightsName = 'azbicep-prod-fc-webapp-ai'
-param pSqlServerName = 'azbicep-prod-fc-sqlserver'
-param pSqlDatabaseName = 'azbicep-prod-fc-database1'
+param pAppServicePlan = '${prefix.projectnameprefix}-${prefix.envprefix}-${prefix.regionprefix}-${prefix.appserviceplanprefix}1'
+param pWebAppName = '${prefix.projectnameprefix}-${prefix.envprefix}-${prefix.regionprefix}-${prefix.appserviceprefix}2'
+param pAppInsightsName = '${prefix.projectnameprefix}-${prefix.envprefix}-${prefix.regionprefix}-${prefix.appinsightprefix}'
+param pSqlServerName = '${prefix.projectnameprefix}-${prefix.envprefix}-${prefix.regionprefix}-${prefix.sqlserverprefix}'
+param pSqlDatabaseName = '${prefix.projectnameprefix}-${prefix.envprefix}-${prefix.regionprefix}-${prefix.sqldatabaseprefix}1'
 param pAdminstratorLogin = 'sqladminuser'
 
