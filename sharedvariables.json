@@ -5,6 +5,5 @@
     "appserviceprefix": "wapp",
     "sqlserverprefix": "sqlsrv",
     "sqldatabaseprefix": "sqldb",
-    "envprefix": "env",
     "regionprefix": "fc"
 }
