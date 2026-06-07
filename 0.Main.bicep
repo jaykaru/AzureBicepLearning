@@ -1,15 +1,33 @@
-param Env string = 'prod'
+param pEnv string
 param pAppServicePlan string 
+
 param pWebAppName string 
 param pAppInsightsName string 
+
 param pSqlServerName string 
 param pSqlDatabaseName string
 param pAdminstratorLogin string
 // @secure()
 // param pAdministratorPassword string
 
-param pSKUName string = (Env == 'dev') ? 'S1' : 'S2'
-param pSKUCapacity int = (Env == 'dev') ? 1 : 2
+// param pSKUName string = (Env == 'dev') ? 'S1' : 'S2'
+// param pSKUCapacity int = (Env == 'dev') ? 1 : 2
+
+// Define configuration for different environments
+var vConfigurations = {
+  dev: {
+    pAppservicePlan: {
+      pSkuName: 'S1'
+      pSkuCapacity: 1
+    }
+  }
+  prod: {
+    pAppservicePlan: {
+      pSkuName: 'S2'
+      pSkuCapacity: 2
+    }
+  }
+}
 
 
 resource keyvault 'Microsoft.KeyVault/vaults@2025-05-01' existing = {
@@ -22,10 +40,10 @@ module AppServicePlan '2.AppServicePlan.bicep' = {
   params: {
     pAppServicePlan: pAppServicePlan
     pWebAppName: pWebAppName
-    pInstrumentationKey: AppInsights.outputs.instrumentationKey
-    pSKUName: pSKUName
-    pSKUCapacity: pSKUCapacity
-    pEnv: Env
+    pInstrumentationKey: AppInsights.outputs.oInstrumentationKey
+    pSKUName: vConfigurations[pEnv].pAppservicePlan.pSkuName
+    pSKUCapacity: vConfigurations[pEnv].pAppservicePlan.pSkuCapacity
+    pEnv: pEnv
   }
 }
 
