@@ -292,3 +292,13 @@ Once you enabled diagnostic settings for logicApps you can view diagnostic setti
 **Environment Configuration**
 
 Inorder to configure multiple environment configuration, you have to create var environment configuration for each env and add resource attributes according to you deployment for each environment.
+
+# Section 16:
+
+**Simpliying Parameter Management with .bicepparam files**
+
+Instead of using parameters.json file to pass values for parameters, the new easy approach is to create .bicepparam files.
+
+Go to Main.bicep and rightclick and select generate paratmeter file option, this would automatically create main.bicepparam file with all parameters necessary according to the main.bicep.
+
+You will refer with with keyword using at top of parameter file  **using 'main.bicep'**, this would allow parameter to refer the main.bicep file and create parameters. 
