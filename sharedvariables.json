@@ -1,0 +1,10 @@
+{
+    "projectnameprefix": "azbicep",
+    "appserviceplanprefix": "aso",
+    "appinsightprefix": "ai",
+    "appserviceprefix": "wapp",
+    "sqlserverprefix": "sqlsrv",
+    "sqldatabaseprefix": "sqldb",
+    "envprefix": "env",
+    "regionprefix": "fc"
+}

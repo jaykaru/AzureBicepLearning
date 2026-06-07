@@ -295,10 +295,21 @@ Inorder to configure multiple environment configuration, you have to create var 
 
 # Section 16:
 
-**Simpliying Parameter Management with .bicepparam files**
+**Simpliying Parameter Management with .bicepparam files - Design Pattern1**
 
 Instead of using parameters.json file to pass values for parameters, the new easy approach is to create .bicepparam files.
 
 Go to Main.bicep and rightclick and select generate paratmeter file option, this would automatically create main.bicepparam file with all parameters necessary according to the main.bicep.
 
 You will refer with with keyword using at top of parameter file  **using 'main.bicep'**, this would allow parameter to refer the main.bicep file and create parameters. 
+
+# Section 17:
+
+**SharedVariables Design Pattern2**
+
+Create sharedvariables.json file and create prefix arguments and value, these arguments you can use in biceparam file and these values will be amended in param.
+
+In your bicepparam file you can create var prefix and using loadJsonContent() to load shared json file.
+
+You can use interpolation and use ${prefix.<json arguments>}
+ex: param pAppServicePlan = '${prefix.projectnameprefix}-${prefix.envprefix}-${prefix.regionprefix}-${prefix.appserviceplanprefix}1'
