@@ -19,6 +19,9 @@
         },
         "pAdminstratorLogin": {
         "value": "sqladminuser"
+        },
+        "pEnv": {
+            "value": "dev"
         }
         // ,
         // "pAdministratorPassword": {

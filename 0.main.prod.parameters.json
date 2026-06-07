@@ -16,6 +16,12 @@
         },
         "pSqlDatabaseName": {
         "value": "azbicep-prod-fc-database1"
+        },
+         "pAdminstratorLogin": {
+        "value": "sqladminuser"
+        },
+        "pEnv": {
+            "value": "prod"
         }
   }
 }
