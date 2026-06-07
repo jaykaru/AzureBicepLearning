@@ -286,3 +286,9 @@ logs: [{ categoryGroup: 'allLogs', enabled: true }]
 metrics: [{ category: 'AllMetrics', enabled: true }]
 
 Once you enabled diagnostic settings for logicApps you can view diagnostic settings under Logic Apps - monitoring - Diagnostic settings, you can click Edit Settings to see all enabled properties
+
+# Section 15:
+
+**Environment Configuration**
+
+Inorder to configure multiple environment configuration, you have to create var environment configuration for each env and add resource attributes according to you deployment for each environment.
